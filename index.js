@@ -5,7 +5,7 @@ const db = require ('./src/utils/db');
 
 const indexRoutes = require ('./src/api/index/index.routes');
 
-const clientsRoutes = require ('./src/api/clients/clients.routes');
+// const clientsRoutes = require ('./src/api/clients/clients.routes');
 
 const dishesRoutes = require ('./src/api/dishes/dishes.routes');
 
@@ -24,9 +24,9 @@ server.use(express.urlencoded({extended : true}));
 
 // server.use('/clients', clientsRoutes);
 
-// server.use('/dishes', dishesRoutes);
+server.use('/dishes', dishesRoutes);
 
-// server.use('/orders', ordersRoutes);
+server.use('/orders', ordersRoutes);
 
 server.use('/', indexRoutes);
 

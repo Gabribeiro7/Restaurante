@@ -72,7 +72,7 @@ const deleteOrder = async (req, res, next) => {
 module.exports = {
     indexGet,
     getById,
-    createOrder,
+    createPost,
     editPut,
     deleteOrder,
     getByOrder,
