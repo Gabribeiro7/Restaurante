@@ -1,7 +1,7 @@
-// const express = require("express");
+const express = require("express");
 // const controller = require("./dishes.controller");
 
-// const router = express.Router();
+const router = express.Router();
 
 // router.get("/", controller.indexGet);
 
@@ -15,4 +15,4 @@
 
 // router.delete("/delete/:id", controller.deleteDishe);
 
-// module.exports = router;
+module.exports = router;
