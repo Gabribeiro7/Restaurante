@@ -13,6 +13,11 @@ const orderSchema = new mongoose.Schema(
             type: mongoose.Types.ObjectId,
             ref : "dishes",
             required: true
+        },
+        
+        price:{
+            type: Number,
+            
         }
 
 
