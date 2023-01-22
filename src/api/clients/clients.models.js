@@ -1,25 +1,21 @@
-const mongoose = require( 'mongoose');
+const mongoose = require("mongoose");
 
 const clientSchema = new mongoose.Schema(
     {
-        name:{
+        name: {
             type: String,
             required: [true, "You must type a client's name"],
         },
 
-        contactEmail:{
+        contactEmail: {
             type: String,
-            required: true,
-            unique: [true, "You must add an e-mail"] 
+            required: [true, "You must add an e-mail"],
+            unique: true,
         },
         password: {
             type: String,
-            required: [true, 'You must insert a password'],
+            required: [true, "You must insert a password"],
         },
-
-
-
-        
     },
     {
         timestamps: true,

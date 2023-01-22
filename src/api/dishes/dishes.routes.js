@@ -1,18 +1,16 @@
-// const express = require("express");
-// const controller = require("./dishes.controller");
+const express = require("express");
+const controller = require("./dishes.controller");
 
-// const router = express.Router();
+const router = express.Router();
 
-// router.get("/", controller.indexGet);
+router.get("/", controller.indexGet);
 
-// router.get("/:id", controller.getById);
+router.get("/:id", controller.getById);
 
-// router.get("/getByDishe/:dishe", controller.getByDishe);
+router.post("/create", controller.createPost);
 
-// router.post("/create", controller.createPost);
+router.put("/edit/:id", controller.editPut);
 
-// router.put("/edit/:id", controller.editPut);
+router.delete("/delete/:id", controller.deleteDishe);
 
-// router.delete("/delete/:id", controller.deleteDishe);
-
-// module.exports = router;
+module.exports = router;

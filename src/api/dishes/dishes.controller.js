@@ -2,7 +2,7 @@ const Dishe = require("./dishes.models");
 
 const indexGet = async (req, res, next) => {
     try{
-        const dishes = await Dishe.findOne();
+        const dishes = await Dishe.find();
         return res.status(200).json(dishes);
     } catch(error){
         return next(error);
@@ -21,13 +21,11 @@ const getById = async (req, res, next) => {
 
 const createPost = async (req, res, next) => {
     try {
-        console.log(req.body);
-
         const disheToBeCreated = new Dishe(req.body);
 
         const created = await disheToBeCreated.save();
 
-        return res.status.jso(created);
+        return res.status(201).json(created);
     } catch (error){
         return next(error);
     }

@@ -9,6 +9,8 @@ router.get("/:id", controller.getById);
 
 router.get("/getByOrder/:order", controller.getByOrder);
 
+router.get("/getByDishe/:dishe", controller.getByDishe);
+
 router.post("/create", controller.createPost);
 
 router.put("/edit/:id", controller.editPut);

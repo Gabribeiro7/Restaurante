@@ -1,20 +1,19 @@
 const express = require('express');
 const cors = require('cors');
+const passport = require("passport");
+const auth = require('./src/utils/auth/index');
+auth.activateAutentication();
 const db = require ('./src/utils/db');
 db.connectDB();
 
-const indexRoutes = require ('./src/api/index/index.routes');
-
-// const clientsRoutes = require ('./src/api/clients/clients.routes');
-
-const dishesRoutes = require ('./src/api/dishes/dishes.routes');
-
+const clientsRoutes = require ('./src/api/clients/clients.routes');
 const ordersRoutes = require ('./src/api/orders/orders.routes');
+const dishesRoutes = require ('./src/api/dishes/dishes.routes');
+const indexRoutes = require ('./src/api/index/index.routes');
 
 const PORT = 3505;
 
 const server = express();
-
 
 server.use(cors());
 
@@ -22,13 +21,18 @@ server.use(express.json());
 
 server.use(express.urlencoded({extended : true}));
 
-// server.use('/clients', clientsRoutes);
+//! autenticación
 
-server.use('/dishes', dishesRoutes);
+server.use(passport.initialize());
+
+server.use('/clients', clientsRoutes);
 
 server.use('/orders', ordersRoutes);
 
+server.use('/dishes', dishesRoutes);
+
 server.use('/', indexRoutes);
+
 
 server.use('*', (req, res, next) => {
     return res.status(404).json('Can not find URL. Try another URL');

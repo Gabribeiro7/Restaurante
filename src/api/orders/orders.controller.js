@@ -1,20 +1,31 @@
 const Order = require("./orders.model");
 
-const indexGet = async (req,res, next) => {
-    try{
-        const orders = await Order.findOne();
+const indexGet = async (req, res, next) => {
+    try {
+        const orders = await Order.find().populate("dishes" , { _id:0 , name:1 , precio:1 } );
         return res.status(200).json(orders);
-    } catch(error) {
+    } catch (error) {
         return next(error);
     }
 };
-const getByOrder = async (req, res, next) => {
+
+const getByDishe = async (req, res, next) => {
     try {
         const { dishe } = req.params;
-        const found = await order.findOne({ dishe: dishe}) ;
+        const found = await dishe.find({ dishe: dishe});
         return res.status(200).json(found);
     } catch (error){
         return next (error);
+    }
+};
+
+const getByOrder = async (req, res, next) => {
+    try {
+        const { dishe } = req.params;
+        const found = await Order.findOne({ dishe });
+        return res.status(200).json(found);
+    } catch (error) {
+        return next(error);
     }
 };
 
@@ -23,8 +34,8 @@ const getById = async (req, res, next) => {
         const { id } = req.params;
         const found = await Order.findById(id);
         return res.status(200).json(found);
-    } catch (error){
-        return next (error);
+    } catch (error) {
+        return next(error);
     }
 };
 
@@ -42,15 +53,15 @@ const createPost = async (req, res, next) => {
     }
 };
 
-const editPut = async(req, res, next) => {
+const editPut = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const fields = {...req.body};
-        const options = { new: true};
-        console.log('fields in orders', options);
+        const fields = { ...req.body };
+        const options = { new: true };
+        console.log("fields in orders", options);
         const edited = await Order.findByIdAndUpdate(id, fields, options);
         return res.status(200).json(edited);
-    } catch(error) {
+    } catch (error) {
         return next(error);
     }
 };
@@ -64,13 +75,14 @@ const deleteOrder = async (req, res, next) => {
         } else {
             return res.status(200).json("Can not find the element to delete");
         }
-    } catch (error){
+    } catch (error) {
         return next(error);
     }
 };
 
 module.exports = {
     indexGet,
+    getByDishe,
     getById,
     createPost,
     editPut,
