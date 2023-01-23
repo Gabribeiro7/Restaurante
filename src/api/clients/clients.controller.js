@@ -5,7 +5,7 @@ const registerPost = (req, res, next) => {
     try {
         const done = (error, user) => {
             if(error) return next(error);
-            return res.status(200).json(user);
+            return res.status(201).json(user);
         };
 
         passport.authenticate('registro', done)(req);
@@ -26,7 +26,25 @@ const indexGet = async (req, res, next) => {
 
 const loginPost = (req, res, next) => {
     try {
-        return res.status(200).json('Login working again');
+        const done = (error, user) => {
+            if(error) return next(error);
+            return res.status(201).json(user);
+        };
+
+        passport.authenticate('logear' , done)(req);
+    } catch (error) {
+        return next(error);
+    }
+};
+const deleteClient = async (req, res, next) => {
+    try {
+        const { id } = req.params;
+        const deleted = await Client.deleteOne({ _id: id });
+        if (deleted.deletedCount) {
+            return res.status(200).json("Client deleted sucessfully");
+        } else {
+            return res.status(200).json("Can not find the client to delete");
+        }
     } catch (error) {
         return next(error);
     }
@@ -36,4 +54,5 @@ module.exports = {
     registerPost,
     loginPost,
     indexGet,
+    deleteClient,
 }

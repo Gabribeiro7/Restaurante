@@ -1,8 +1,8 @@
-const Client = require("../../api/clients/clients.models");
+const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require('bcrypt');
+const Client = require("../../api/clients/clients.models");
 const { isValidEmail, isValidPassword } = require("../validation");
 
-const LocalStrategy = require("passport-local").Strategy;
 
 const registerStrategy = new LocalStrategy(
     {
@@ -11,7 +11,7 @@ const registerStrategy = new LocalStrategy(
         passReqToCallback: true,
     }, async (req, contactEmail, password, done) => {
         try {
-           const clientDB = await Client.findOne({ contactEmail: contactEmail.toLocaleLowerCase });
+           const clientDB = await Client.findOne({ contactEmail: contactEmail.toLowerCase() });
 
            if(clientDB) {
             const error = new Error('The client already exists');

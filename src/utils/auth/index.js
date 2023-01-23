@@ -2,11 +2,14 @@ const passport = require('passport');
 
 const registerStrategy = require('./registerStrategy');
 
-const activateAutentication = () => {
+const loginStrategy = require('./loginStrategy');
 
+const activateAutentication = () => {
+    
+    passport.use('registro', registerStrategy); 
+    passport.use('logear', loginStrategy); 
 };
 
-passport.use('registro', registerStrategy); 
 
 module.exports = {
     activateAutentication,

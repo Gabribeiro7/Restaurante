@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const Order = require('../orders/orders.model');
 
 const clientSchema = new mongoose.Schema(
     {
@@ -16,6 +17,20 @@ const clientSchema = new mongoose.Schema(
             type: String,
             required: [true, "You must insert a password"],
         },
+        phonenumber: {
+            type: Number,
+            required: false,
+            unique: true
+        },
+        adress: {
+            type: String,
+            required: false
+        },
+        clientOrders: {
+            type: [mongoose.Types.ObjectId],
+            ref: "orders"
+        }
+       
     },
     {
         timestamps: true,

@@ -1,30 +1,13 @@
 const Order = require("./orders.model");
 
+
 const indexGet = async (req, res, next) => {
-    try {
-        const orders = await Order.find().populate("dishes" , { _id:0 , name:1 , precio:1 } );
+    try{
+        const orders = await Order.find().populate("dishes" , { _id:0 , name:1 , precio:1 })
+        .populate( "combos" , { _id:0 , name:1 , price:1 } );
+        // const orders = await Order.find().populate( {path: "dishes", select: "name" ,"price" } );
         return res.status(200).json(orders);
-    } catch (error) {
-        return next(error);
-    }
-};
-
-const getByDishe = async (req, res, next) => {
-    try {
-        const { dishe } = req.params;
-        const found = await dishe.find({ dishe: dishe});
-        return res.status(200).json(found);
-    } catch (error){
-        return next (error);
-    }
-};
-
-const getByOrder = async (req, res, next) => {
-    try {
-        const { dishe } = req.params;
-        const found = await Order.findOne({ dishe });
-        return res.status(200).json(found);
-    } catch (error) {
+    } catch(error){
         return next(error);
     }
 };
@@ -41,27 +24,25 @@ const getById = async (req, res, next) => {
 
 const createPost = async (req, res, next) => {
     try {
-        console.log(req.body);
+        const disheToBeCreated = new Order(req.body);
 
-        const orderToBeCreated = new Order(req.body);
-
-        const created = await orderToBeCreated.save();
+        const created = await disheToBeCreated.save();
 
         return res.status(201).json(created);
-    } catch (error) {
+    } catch (error){
         return next(error);
     }
 };
 
-const editPut = async (req, res, next) => {
+const editPut = async(req, res, next) => {
     try {
         const { id } = req.params;
-        const fields = { ...req.body };
-        const options = { new: true };
-        console.log("fields in orders", options);
+        const fields = {...req.body};
+        const options = {new: true};
+        console.log('fields in dishe', options);
         const edited = await Order.findByIdAndUpdate(id, fields, options);
         return res.status(200).json(edited);
-    } catch (error) {
+    } catch(error) {
         return next(error);
     }
 };
@@ -69,12 +50,31 @@ const editPut = async (req, res, next) => {
 const deleteOrder = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const deleted = await Order.deleteOne({ _id: id });
+        const deleted = await Order.deleteOne({ _id: id});
         if (deleted.deletedCount) {
-            return res.status(200).json("Element deleted sucessfully");
+            return res.status(200).json("Eleement deleted with success");
         } else {
-            return res.status(200).json("Can not find the element to delete");
+            return res.status(200).json("Can't find the element to delete");
         }
+    } catch (error){
+        return next(error);
+    }
+};
+const getByDishe = async (req, res, next) => {
+    try {
+        const { dishe } = req.params;
+        const found = await dishe.find({ dishe: dishe});
+        return res.status(200).json(found);
+    } catch (error){
+        return next (error);
+    }
+};
+
+const getByCombo = async (req, res, next) => {
+    try {
+        const { dishe } = req.params;
+        const found = await Combo.findOne({ dishe });
+        return res.status(200).json(found);
     } catch (error) {
         return next(error);
     }
@@ -82,10 +82,10 @@ const deleteOrder = async (req, res, next) => {
 
 module.exports = {
     indexGet,
-    getByDishe,
     getById,
     createPost,
     editPut,
     deleteOrder,
-    getByOrder,
+    getByDishe,
+    getByCombo,
 };

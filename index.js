@@ -6,10 +6,11 @@ auth.activateAutentication();
 const db = require ('./src/utils/db');
 db.connectDB();
 
-const clientsRoutes = require ('./src/api/clients/clients.routes');
-const ordersRoutes = require ('./src/api/orders/orders.routes');
-const dishesRoutes = require ('./src/api/dishes/dishes.routes');
-const indexRoutes = require ('./src/api/index/index.routes');
+const clientsRoutes = require('./src/api/clients/clients.routes');
+const ordersRoutes = require('./src/api/orders/orders.routes');
+const combosRoutes = require('./src/api/combos/combos.routes');
+const dishesRoutes = require('./src/api/dishes/dishes.routes');
+const indexRoutes = require('./src/api/index/index.routes');
 
 const PORT = 3505;
 
@@ -28,6 +29,8 @@ server.use(passport.initialize());
 server.use('/clients', clientsRoutes);
 
 server.use('/orders', ordersRoutes);
+
+server.use('/combos', combosRoutes);
 
 server.use('/dishes', dishesRoutes);
 
