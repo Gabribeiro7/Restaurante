@@ -17,7 +17,7 @@ const loginStrategy = new LocalStrategy(
                 return done(error, null);
             }
     
-            const clientDB = await Client.findOne({ contactEmail: contactEmail.toLowerCase() });
+            const clientDB = await Client.findOne({ contactEmail });
 
             const isValidClientPassword = await bcrypt.compare(password, clientDB.password);
 
