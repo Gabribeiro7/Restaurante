@@ -1,18 +1,18 @@
-const Combo = require("./combos.model");
+const ComboCroqueta = require("./combos-croquetas.models");
 
 const indexGet = async (req, res, next) => {
     try {
-        const combos = await Combo.find().populate("dishes" , { _id:0 , name:1 , precio:1 } );
-        return res.status(200).json(combos);
+        const comboscroqueta = await ComboCroqueta.find().populate("croquetas" , { _id:0 , name:1 , precio:1 ,  } );
+        return res.status(200).json(comboscroqueta);
     } catch (error) {
         return next(error);
     }
 };
 
-const getByDishe = async (req, res, next) => {
+const getByCroqueta = async (req, res, next) => {
     try {
-        const { dishe } = req.params;
-        const found = await Combo.find({ dishes: dishe}).populate("dishes");
+        const { croqueta } = req.params;
+        const found = await ComboCroqueta.find({ croquetas: croqueta}).populate("croquetas");
         return res.status(200).json(found);
     } catch (error){
         return next (error);
@@ -21,8 +21,8 @@ const getByDishe = async (req, res, next) => {
 
 const getByCombo = async (req, res, next) => {
     try {
-        const { combo } = req.params;
-        const found = await Combo.findOne({ combo: combo });
+        const { combocroqueta } = req.params;
+        const found = await ComboCroqueta.findOne({ combocroqueta: combocroqueta });
         return res.status(200).json(found);
     } catch (error) {
         return next(error);
@@ -32,7 +32,7 @@ const getByCombo = async (req, res, next) => {
 const getById = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const found = await Combo.findById(id);
+        const found = await ComboCroqueta.findById(id);
         return res.status(200).json(found);
     } catch (error) {
         return next(error);
@@ -43,9 +43,9 @@ const createPost = async (req, res, next) => {
     try {
         console.log(req.body);
 
-        const comboToBeCreated = new Combo(req.body);
+        const combocroquetaToBeCreated = new ComboCroqueta(req.body);
 
-        const created = await comboToBeCreated.save();
+        const created = await combocroquetaToBeCreated.save();
 
         return res.status(201).json(created);
     } catch (error) {
@@ -58,18 +58,18 @@ const editPut = async (req, res, next) => {
         const { id } = req.params;
         const fields = { ...req.body };
         const options = { new: true };
-        console.log("fields in combos", options);
-        const edited = await Combo.findByIdAndUpdate(id, fields, options);
+        console.log("fields in comboscroqueta", options);
+        const edited = await ComboCroqueta.findByIdAndUpdate(id, fields, options);
         return res.status(200).json(edited);
     } catch (error) {
         return next(error);
     }
 };
 
-const deleteCombo = async (req, res, next) => {
+const deleteComboCroqueta = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const deleted = await Combo.deleteOne({ _id: id });
+        const deleted = await ComboCroqueta.deleteOne({ _id: id });
         if (deleted.deletedCount) {
             return res.status(200).json("Element deleted sucessfully");
         } else {
@@ -82,10 +82,10 @@ const deleteCombo = async (req, res, next) => {
 
 module.exports = {
     indexGet,
-    getByDishe,
+    getByCroqueta,
     getById,
     createPost,
     editPut,
-    deleteCombo,
+    deleteComboCroqueta,
     getByCombo,
 };
