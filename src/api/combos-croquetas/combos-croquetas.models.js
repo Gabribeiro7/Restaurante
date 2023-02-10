@@ -16,9 +16,9 @@ const comboCroquetaSchema = new mongoose.Schema(
             required: true
         },
 
-        packCroqueta:{
+        croquetas:{
             type:[mongoose.Types.ObjectId],
-            ref : "packCroquetas",
+            ref : "croquetas",
             required:true
         },
         

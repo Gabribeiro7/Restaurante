@@ -10,9 +10,12 @@ const clientsRoutes = require('./src/api/clients/clients.routes');
 const ordersRoutes = require('./src/api/orders/orders.routes');
 const combosRoutes = require('./src/api/combos/combos.routes');
 const dishesRoutes = require('./src/api/dishes/dishes.routes');
+const croquetasRoutes = require('./src/api/packs-croquetas/packs-croquetas.routes');
+const bebidasRoutes = require('./src/api/bebidas/bebidas.routes');
+const combosCroquetaRoutes = require('./src/api/combos-croquetas/combos-croquetas.routes')
 const indexRoutes = require('./src/api/index/index.routes');
 
-const PORT = 3505;
+const PORT = 8000;
 
 const server = express();
 
@@ -33,6 +36,12 @@ server.use('/orders', ordersRoutes);
 server.use('/combos', combosRoutes);
 
 server.use('/dishes', dishesRoutes);
+
+server.use('/croquetas', croquetasRoutes);
+
+server.use('/bebidas', bebidasRoutes);
+
+server.use('/combos-croquetas', combosCroquetaRoutes );
 
 server.use('/', indexRoutes);
 
